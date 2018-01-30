@@ -1,3 +1,23 @@
+# 20180130 기본 아닌 기본 내용 
+- 식 문 값 연산자 예약어 주석 
+   - express : 명령을 수행하여 한개의 값을 도출 
+   - value : javascript의 datatype으로 나타낸 것 
+   - statement : ; {}을 이용하여 만든 명령의 집합 
+   - operator : 지정된 특수한 명령을 수행하는 기호  
+   - keyword : 지정된 특수한 명령을 수행하는 단어의 조합 
+   - comment : 프로그램에 영향을 미치지 않는 글 
+- 변수와 변수
+   - 메모리구조 : 1word = 4byte = 32bit = 1번에 읽을수 있는 주소범위(32bit cpu 기준)  
+   - 변수의 종류 : primitive type / object type  
+      - primitive type : immutable 하고 call by value(pass to value) 하다 
+         - 변수의 값을 다시 할당할때 기존의 메모리 주소값을 사용하지 않고, 다른 곳에 할당을 한다. 이를 immutable하다고 한다. 
+      - object type : mutable 하고 call by reference(pass to reference) 하다
+- 오퍼레이터 
+   - 단축평가 : 논리연산자가 boolean과 사용되지 않아 결과값이 피연산자 값중 하나를 반환하는 것을 이용하여 작성 
+      - && : 마지막에 나오는 truthy 연산자 반환 
+      - || : 처음 나오는 truthy 연산자 반환
+- 제어문(반복, 조건, 형변환)
+
 # 20180130 예습내용 
 - new 명령어를 통하여 객체 생성이 가능하다. 
 - 모든 객체는 \[\[prototype\]\] 이라는 은닉속성을 가지고 있고, 이는 다른 protype을 가리킨다.  
@@ -118,12 +138,52 @@
       - this = that 
       - bind, call, apply 사용  
 
-## ES6 3. class 
-   - getter, setter 
-   - extends (상속) 
-   - super 
-   - 
-   
+## ES6 3. 오브젝트 상속과 class
+   - 변수에 객체를 바로 생성 가능 var test = {}; 
+   - 동일한 기능의 객체를 동적으로 사용하기 위해 함수를 만들어 new를 선언
+      function test() { this.a = 'a' }
+      var aDash = new test(); 
+      - new키워드도 prototype을 이용하는 방법  
+   - new 키워드 없이 객체를 만드는 방법이 객체를 선언하는 방법 필요성 대두. Object 객체 
+      - Object.create() 
+      - Object.assign() 
+      - Object.setProperty() ... 
+      - Object.freeze() // immutable variable 변경 / deepFreeze 가능
+      - Object.seal() //변경가능, 추가 및 삭제 불가능
+   - class로 객체 만들기 
+```javascript
+class Polygon {
+   constructor(height, width) {
+      this.height = height;
+      this.width = width;
+    }
+}
+class Square extends Polygon {
+   constructor(sideLength) {
+      super(sideLength, sideLength)
+    }
+   get area() {
+      return this.height * this.width;
+    }
+   set sideLength(newLength){
+      this.height = newLength;
+      this.width = newLength;
+    }
+}
+
+var square = new Square(2);
+
+square.area
+4
+square.sideLength = 5
+5
+square.area
+25
+```
+   - prototype link + prototype object 
+      1. [참고링크1](https://medium.com/@bluesh55/javascript-prototype-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-f8e67c286b67) 
+      2. [참고링크2](http://rhio.tistory.com/236) 
+      3. [참고링크3](http://insanehong.kr/post/javascript-prototype/)
 
 
 
