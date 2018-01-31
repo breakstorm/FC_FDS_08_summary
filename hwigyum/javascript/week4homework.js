@@ -96,6 +96,11 @@ function problem1() {
     }
 }
 function problem2() {
+    let result = '';
+    for(let i = 0; i < 10; i++) {
+        if( i%2 === 0 ) result += i+'';
+    }
+    console.log(result);
     for(let i = 10; i > 0; i--) {
     if(i % 2 === 1) console.log(i)
     }
@@ -148,11 +153,24 @@ function problem8() {
 }
 function problem9(line) {
     let result = '';
+    let star = ''
+    //방법1
+    // for(let i = 0; i < line; i++) {
+    //     for(let j = 0; j <= i; j++) {
+    //         result += '*';
+    //     }
+    //     result += '\n';
+    // }
+    
+    //방법2
+    // for(let i = 0; i < line; i++) {
+    //     result += Array(i+2).join('*') + '\n';
+    // }
+    
+    //방법13
     for(let i = 0; i < line; i++) {
-        for(let j = 0; j <= i; j++) {
-            result += '*';
-        }
-        result += '\n';
+        star += '*';
+        result += star + '\n';
     }
     console.log(result);
 }

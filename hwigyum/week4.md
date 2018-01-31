@@ -1,3 +1,94 @@
+# 20180131 예습 
+- 객체 : primitive type이 아닌 나머지는 모두 객체 (함수, 배열 ...) 
+- syntatic sugar : 새로운 내용이 아닌 기존 내용을 쉽게 사용할 수 있게끔 만든 문법. 
+- 객체 리터럴 : 중괄호와 변수선언(var)을 이용하여 사용한다.  
+- 객체 함수 : 생성자와 new 이용하여 사용한다. 
+- 일급객체 
+   - 무명의 리터럴로 표현이 가능하다. 
+   - 변수나 배열 등 자료형에 저장할 수 있다. 
+   - 함수의 파라미터로 전달 할 수 있다. 
+   - 반환값으로 사용할 수 있다. (pass to value)
+- 함수 선언식 : function foo () {}
+- 기명 함수 표현식 : var foo = function bar() {};
+- 익명 함수 표현식 : var foo = function () {};
+- 호이스팅 
+- VO(variable object) 
+- 함수호이스팅 : 선언, 초기화, 할당이 이루어짐 
+- 변수호이스팅 : 선언, 초기화 이루어짐 (함수표현식은 변수 호이스팅 발생)  
+- 비순수함수 : parameter에 side-effect 발생하는 함수 
+- 순수함수 : parameter에 side-effect 발생하지 않는 함수  
+- 반환값 : 배열, 객체을 이용하여 여러개의 값을 반환할 수 있다. 
+- console.dir : 객체 요소(property)를 나타내는 명령어 
+- arguments : a(arguments) 
+- parameter : function a(parameter) { } / 유사배열 객체
+- 유사배열객체 : length property를 가진 객체 
+- __proto__ : [[Prototype]] 이라고도 한다. 자신의 상위 객체를 가지며, prototype chain 특성이 있다. 
+- 즉시호출함수표현식(IIFE) : 호출과 동시에 실행을 하는 함수.
+- 내부함수 : 함수 내부에 정의된 함수 
+- 콜백함수 : 비동기 처리, 클로저(???) 이다.  
+- 프로토타입 객체 : 상속시 자신의 객체 내용을 사용할 수 있게 해주는 객체.  
+- 모든 객체는 __proto__를 가진다.  
+- prototype chain : 개체가 자신에게 없을 경우 __proto__의 객체로 가서 찾는 행위 
+- 함수 리터럴 방식 ? 
+- 패턴별 this의 값 
+   - 함수 : 호출하는 식이 앞에 가리키는 객체 
+```js
+foo() // this = window
+obj.foo() // this = obj 
+```
+   - 인자 : 호출하는 식 앞에 가리키는 객체
+```js
+var obj = {
+  value: 100,
+  foo: function() {
+    console.log("foo's this: ",  this);  // obj
+    console.log("foo's this.value: ",  this.value); // 100
+    function bar() {
+      console.log("bar's this: ",  this); // window
+      console.log("bar's this.value: ", this.value); // 1
+    }
+   console.dir(this);
+    bar.apply(this);
+  }
+};
+
+obj.foo();
+```
+```js
+function LateBloomer() {
+  this.petalCount = Math.ceil(Math.random() * 12) + 1;
+}
+
+// 1초 지체 후 bloom 선언
+LateBloomer.prototype.bloom = function() {
+   console.log(this);
+  window.setTimeout(this.declare.bind(this), 1000);
+};
+
+LateBloomer.prototype.declare = function() {
+  console.log('I am a beautiful flower with ' +
+    this.petalCount + ' petals!');
+};
+
+var flower = new LateBloomer();
+flower.bloom();
+// 1초 뒤, 'declare' 메소드 유발
+```
+
+   - 메소드 : ?????? 
+   - 생성자 : 앞에 있는 신규 객체를 가리킴 
+```
+var foo = new bar() ==> this = foo
+```
+- scope-safe-pattern : 객체 생성시 에러릴 피하기 위한 패턴 
+   - 생성자 함수는 첫글자를 대문자로 시작한다.
+
+
+# 20180131 반응형웹 레이아웃 연습 
+- HTML 마크업 구조 작성 
+- 습작 사이트 CSS 분석 
+- 
+
 # 20180130 기본 아닌 기본 내용 
 - 식 문 값 연산자 예약어 주석 
    - express : 명령을 수행하여 한개의 값을 도출 
