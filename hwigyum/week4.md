@@ -1,3 +1,137 @@
+# 20180201 수업내용 
+- 조건문 (evaluating) : true/false에 따라 다른 내용을 수행 
+- 강제형변환(type coercion) 1 + '2'
+- data type conversion : one -> another (number->string)
+- 객체 
+   - 구성 : property, method 
+   - 생성방법 : 리터럴, Object, 객체함수(생성자함수)
+   - 사용방법 
+      - . \[\] 의 문자를 사용해서 property, method에 접근(사용)을 한다. 
+      - 구성요소 변경, 추가, 삭제 가능
+   - 분류 
+      - built-in Object 
+         - Standard Built-in Object 
+         - Native Object 
+            - BOM(Browser Object Model) 
+            - DOM(Document Object Model) 
+      -Host Object : 사용자 정의 객체 
+- 함수를 왜 객체로 만들었을까? 상속을 해주기 위해서?!
+- 함수 
+   - 함수는 일급객체 (first-class citizen) 
+      - 무명 리터럴 으로 사용 가능하다. 
+      - 변수, 자료구조에 저장 가능하다. 
+      - 파라미터로 전달 가능하다. 
+      - 값으로 사용 할 수 있다. 
+   - 함수의 종류 
+      - 함수선언식 
+      - 기명함수 표현식
+      - 익명함수 표현식 
+      - 즉시실행 함수 
+      - Function 생성자 함수  
+   - 호이스팅 
+      - 함수호이스팅 : 선언, 초기화, 할당(호출가능) 
+      - 변수호이스팅 : 선언, 초기화(함수표현식은 변수 호이스팅에 해당)
+   - 매개변수
+      - 값 혹은 객체 전달 
+      - parameter 값을 arguments로 접근할 수 있다.
+   - 반환값 : default undefine  
+   - 함수객체 구성 
+      - arguments 
+      - length 
+      - caller 
+      - name 
+      - __proto__ 
+
+
+# 20180201 문제 
+- this의 의미 (전일 했는 내용과 비교 필요) 
+   - 전역에서 사용시
+   - 함수 안에서 사용시 
+      - 
+- 앞에 객체를 적었는데도 this가 원하는 곳을 안가키는 경우 
+https://blog.weirdx.io/post/3214 
+https://github.com/FEDevelopers/tech.description/wiki/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%EB%90%98%EB%8A%94-this%EC%97%90-%EB%8C%80%ED%95%9C-%EC%84%A4%EB%AA%85-2#6-%EB%B0%94%EC%9D%B8%EB%94%A9-%ED%95%A8%EC%88%98
+```js
+function Shape() {
+  this.x = 0;
+  this.y = 0;
+}
+
+Shape.prototype = {
+  move: function(x, y) {
+    this.x += x;
+    this.y += y;
+   console.log(this);
+
+    function checkBounds() {
+      if (this.x > 100) {
+        console.error('Warning: Shape out of bounds');
+      }
+    }
+
+   checkBounds.call(this);
+  }
+};
+
+var shape = new Shape();
+shape.move(101, 1);
+```
+
+- bind : Function.prototype.bind 는 원하는 Function에 인자로 넘긴 this 가 바인딩 된 새로운 함수를 리턴한다.
+```js
+Shape.prototype = {
+  move: function(x, y) {
+    this.x += x;
+    this.y += y;
+
+    function checkBounds(min, max) {
+      if (this.x < min || this.x > max) {
+        console.error('Warning: Shape out of bounds');
+      }
+    }
+
+    var checkBoundsThis = checkBounds.bind(this);
+    checkBoundsThis(0, 100);
+  }
+};
+```
+```js
+Shape.prototype = {
+  move: function(x, y) {
+    this.x += x;
+    this.y += y;
+
+    var checkBounds = function(min, max) {
+      if (this.x < min || this.x > max) {
+        console.error('Warning: Shape out of bounds');
+      }
+    }.bind(this);
+
+    checkBounds(0, 100);
+  }
+};
+```
+
+```js 
+function LateBloomer() {
+  this.petalCount = Math.ceil( Math.random() * 12 ) + 1;
+}
+
+// declare bloom after a delay of 1 second
+LateBloomer.prototype.bloom = function() {
+  window.setTimeout( this.declare, 1000 );
+};
+
+LateBloomer.prototype.declare = function() {
+  console.log('I am a beautiful flower with ' + this.petalCount + ' petals!');
+};
+var lb = new LateBloomer();
+lb.bloom();
+
+// "I am a beautiful flower with undefined petals!"
+```
+
+
 # 20180131 예습 
 - 객체 : primitive type이 아닌 나머지는 모두 객체 (함수, 배열 ...) 
 - syntatic sugar : 새로운 내용이 아닌 기존 내용을 쉽게 사용할 수 있게끔 만든 문법. 
@@ -61,6 +195,7 @@ function LateBloomer() {
 
 // 1초 지체 후 bloom 선언
 LateBloomer.prototype.bloom = function() {
+   debugger;
    console.log(this);
   window.setTimeout(this.declare.bind(this), 1000);
 };
@@ -82,7 +217,39 @@ var foo = new bar() ==> this = foo
 ```
 - scope-safe-pattern : 객체 생성시 에러릴 피하기 위한 패턴 
    - 생성자 함수는 첫글자를 대문자로 시작한다.
-
+- function scope
+- lexical scoping 
+- 암묵적 전역 (implied global) 
+- scope-chain
+- 실행컨텍스트(execution context, EC) : 프로그램이 현재 호출된 정보, call stack에서 최상위를 가르키는 말, 실행컨텍스트 객체(함수실행전 생성) + 실행 객체
+- 실행컨텍스트 스택
+- 실행가능 코드 : 실행할 수 있는 코드의 환경
+   - 전역코드 : 전역 영역에 있는 코드 
+   - 함수코드 : 함수 내에 있는 코드 
+- 실행컨텍스트 객체 
+   - scopechain 
+   - variable object 
+   - this
+```
+1. Find some code to invoke a function.
+2. Before executing the function code, create the  execution context.
+3. Enter the creation stage:
+   - Initialize the Scope Chain.
+   - Create the variable object:
+      - Create the arguments object, check the context for parameters, initialize the name and value and create a reference copy.
+      - Scan the context for function declarations:
+         - For each function found, create a property in the  variable object that is the exact function name, which has a reference pointer to the function in memory.
+         - If the function name exists already, the reference pointer value will be overwritten.
+      - Scan the context for variable declarations:
+         - For each variable declaration found, create a property in the variable object that is the variable name, and initialize the value as undefined.
+         - If the variable name already exists in the  variable object, do nothing and continue scanning.
+      - Determine the value of "this" inside the context.
+4. Activation / Code Execution Stage:
+   - Run / interpret the function code in the context and assign variable values as the code is executed line by line.
+```
+- creation stage 
+- execution stage  
+- 
 
 # 20180131 반응형웹 레이아웃 연습 
 - HTML 마크업 구조 작성 
@@ -172,6 +339,7 @@ var foo = new bar() ==> this = foo
    3. 프로퍼티에 함수 뿐만이 아니라, 값도 가능.
 
 ## ES6 변수관련  
+- 기본구문(변수, 반복, 제어) -> 함수 -> 범위 -> this -> 객체 -> 비동기 
    1. scope(유효범위) 
       - 기존 function-level scope : 함수 내에서 모든 변수를 사용 가능 하다. 
          - 문제점 : 함수 안의 함수, scope-chain으로 다른 함수의 변수를 참조할 수 있게 된다.  
@@ -277,7 +445,7 @@ square.area
       3. [참고링크3](http://insanehong.kr/post/javascript-prototype/)
 
 
-
+1. [this 관련 링크-hun's 블로그](http://huns.me/development/258) 
 
 object.assign 
 object.createElement 
