@@ -57,7 +57,7 @@ var obj = new Function();
       3. 생성자 함수 내용을 수행하고 (이름없는)빈객체를 반환 한다.
 
 # 20180202 생각정리 
-- constructor function 이 호출되는 과정 
+- constructor function 이 호출되는 과정 : 위에서 정리.
 - bind이라는 의미.  
 - callback을 호출시점을 제어하는 방법 
 - wrapper object : 원시타입(primitive type) 자료를 생성하고 메소드를 사용하는데 도움을 주는 객체 
