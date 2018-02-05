@@ -1,4 +1,47 @@
-# week4 정리내용
+# week4 정리내용 
+전체개요 
+   1. C-type 언어  
+   2. 자바스크립트 상속 (prototype) 
+   3. 자바스크립트 프로그램 실행 (execution context) 
+
+간단요약 
+   1. C-type언어 
+      - 구성항목 
+         1. 식(expression) : 1개의 결과값 도출 
+         2. 문(statement) : ; {} 으로 표현된 명령어의 집합 
+         3. 값(value) : 6개의 원시값, 1개의 객체로 구성. 
+      - 흐름제어 : 조건문, 반복문, 함수 
+      - 값 저장 방식
+         1. 원시값(primitive type) : immutable, pass-to-value
+         2. 객체값(object type): mutable, pass-to-reference 
+   2. 자바스크립트 상속(공유) 
+      - Object 구성 : 프로퍼티로 구성 (variable, function 저장)
+      - 객체지향이란 : 추상화를 통하여 프로그래밍화 하는것을 의미 
+         1. 상속 
+         2. 다형성(오버라이딩, 오버로딩) 
+         3. 캡슐화  
+      - 상속구현 방법 
+         1. 일반함수 생성시 객체도 같이 생성 (prototype Object) 
+         2. 일반함수에서 객체로 연결되는 변수 존재 (prototype property) 
+         3. 객체에서 일반함수로 연결되는 변수 존재 (constructor property) 
+         4. 객체 생성시 함수에서 prototype Ojbect의 주소값 전달, __proto__에 해당값 저장 
+         5. 프로퍼티 조회시 자신의 객체에 없으면 __proto__를 이용하여 올라가면서 찾음 (prototype chain) 
+   3. 자바스크립트 프로그램실행(execution context) 
+      - 실행의 종류 
+         1. 전역코드(global code) 
+         2. 함수코드(function code) 
+         3. 실행코드(eval code) 
+      - 코드 실행전 초기화 작업 진행 내용 
+         1. variable object 
+         2. scope object 
+         3. this 
+      - this의 특이경우 
+         1. 초기화 단계에서의 this값 결정은 의미가 없음 : lexical scope 
+         2. 실행 단계에서 this값 결정 : 이해를 돕기위한 reference type 
+      - this값 조작을 위한 방법 
+         1. apply, call을 통한 this값 조작후 바로 실행 
+         2. bind를 통한 강력한 바인딩 함수 반환 
+         3. ES6의 화살표 함수로 문법 작성
 
 # 20180202 수업내용 
 1. 함수
