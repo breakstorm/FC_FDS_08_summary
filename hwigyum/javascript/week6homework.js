@@ -25,7 +25,9 @@ function checkPalindrom(str) {
 console.log(checkPalindrom('dad')); // true
 console.log(checkPalindrom('mom')); // true
 console.log(checkPalindrom('palindrom')); // false
-console.log(checkPalindrom('s')); // false``````11. 배열의 최대/최소값 구하기
+console.log(checkPalindrom('s')); // false
+
+11. 배열의 최대/최소값 구하기
 배열의 요소 중 최대값/최소값을 반환하는 함수를 완성하라.
 
 function getMaxValueFromArray(array) {
@@ -36,7 +38,9 @@ console.log(getMaxValueFromArray([3, 6, -2, -5, 7, 3])); // 7
 function getMinValueFromArray(array) {
 
 }
-console.log(getMinValueFromArray([3, 6, -2, -5, 7, 3])); // -5``````12. 약수의 합
+console.log(getMinValueFromArray([3, 6, -2, -5, 7, 3])); // -5
+
+12. 약수의 합
 어떤 수를 입력받아 그 수의 약수를 모두 더한 수를 구하는 sumDivisor 함수를 완성하라. 예를 들어 12가 입력된다면 12의 약수는 [1, 2, 3, 4, 6, 12]가 되고, 총 합은 28이 되므로 28을 반환한다.
 
 약수(約數, divisor)는 어떤 수를 나누었을 때 나머지가 0인 수를 말하며, 배수 관계와 서로 반대되는 개념이다
@@ -45,7 +49,9 @@ function sumDivisor(num) {
 
 }
 
-console.log(sumDivisor(12)); // 28``````13. 소수 찾기
+console.log(sumDivisor(12)); // 28
+
+13. 소수 찾기
 numberOfPrime 메소드는 정수 n을 매개변수로 입력받는다. 1부터 입력받은 숫자 n 사이에 있는 소수의 개수를 반환하도록 numberOfPrime 함수를 완성하라.
 
 소수(素數, prime number)는 양의 약수가 1과 자기 자신 뿐인 1보다 큰 자연수로 정의된다. 즉, 1과 자기 자신으로만 나누어지는 수를 의미한다.
@@ -58,7 +64,8 @@ function numberOfPrime(n) {
 
 }
 
-console.log(numberOfPrime(10)); // 4``````14. 피보나치 수
+console.log(numberOfPrime(10)); // 4
+14. 피보나치 수
 피보나치 수는 0과 1로 시작하며, 다음 피보나치 수는 바로 앞의 두 피보나치 수의 합이 된다. 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946…
 
 2 이상의 n이 입력되었을 때, fibonacci 함수를 작성하여 n번째 피보나치 수를 반환하라. 예를 들어 n = 3이라면 2를 반환한다.
@@ -141,3 +148,61 @@ console.log(nextSqaure(3));   // no
 console.log(nextSqaure(121)); // 144
 console.log(nextSqaure(165)); // no
 console.log(nextSqaure(400)); // 441
+
+
+console.log("========= problem10 =========");
+
+function checkPalindrom(str) {
+  const middle = Math.floor(str.length/2);
+  let start = 0, end = str.length-1;
+
+  if(str.length <= 1) return false;
+
+  while(start < middle) {
+    if(!(str[start] === str[end])) return false;
+    start++;
+    end--;
+  }
+  return true;
+}
+
+console.log(checkPalindrom('dad')); // true
+console.log(checkPalindrom('mom')); // true
+console.log(checkPalindrom('palindrom')); // false
+console.log(checkPalindrom('pp')); // true
+console.log(checkPalindrom('s')); // false
+
+console.log("========= problem11 =========");
+function getMaxValueFromArray(array) {
+  return Math.max(...array);
+}
+console.log(getMaxValueFromArray([3, 6, -2, -5, 7, 3])); // 7
+
+function getMinValueFromArray(array) {
+  return Math.min(...array);
+}
+console.log(getMinValueFromArray([3, 6, -2, -5, 7, 3])); // -5 
+
+
+console.log("========= problem12 =========");
+function sumDivisor(num) {
+  let array =  [];
+  let result = 0;
+  for(let i = 1; i <= num; i++){
+    if(num%i === 0) array.push(i);
+  }
+
+  array.forEach((v,i,a) => {
+    result += v;
+  })
+  return result;
+}
+
+console.log(sumDivisor(12)); // 28
+
+console.log("========= problem13 =========");
+function numberOfPrime(n) {
+  
+}
+
+console.log(numberOfPrime(10)); // 4

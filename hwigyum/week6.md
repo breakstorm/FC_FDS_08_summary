@@ -1,3 +1,13 @@
+# 20180220 
+
+## 수업내용 
+
+## 자습내용 
+
+[요비 블로그 - callback](http://yubylab.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%9D%98-%EC%BD%9C%EB%B0%B1%ED%95%A8%EC%88%98-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0)
+
+[javscript is sexy](http://javascriptissexy.com/understand-javascript-callback-functions-and-use-them/#)
+
 # 20180219 
 
 ## 자습내용 
@@ -32,9 +42,9 @@
     - Element - Element 관계 : 구조에 따라, 부모-자식, 형제관계 
     - Query(선택)과 Traverse(탐색)을 통하여 DOM조작 
     - 다수의 Node 선택시 방법에 따라 ***HTML Collection(live)*** ***Nodelist(non-live)*** 값으로 나뉜다.  
-
-	3. DOM조작 
-
+    
+    3. DOM조작 
+    
     - Node를 만들고, 추가하는 모든 작업 수행하는 방법 
     - innerHTML을 사용하는 방법 (보안이슈 존재) 
     - AdjacentHTML을 사용하는 방법(보안이슈 존재) 
