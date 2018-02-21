@@ -12,6 +12,7 @@ input {
     border: 0;
 }
 
+
 input:focus {
     outline:none;
 }
@@ -25,4 +26,12 @@ li {
 
 li:hover {
     text-decoration: line-through;
+}
+
+input[type="checkbox"] {
+    width: auto;
+    height: auto;
+}
+button {
+    height: 30px;
 }

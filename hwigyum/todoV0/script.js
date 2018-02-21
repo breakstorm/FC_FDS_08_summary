@@ -23,18 +23,27 @@ document.addEventListener('DOMContentLoaded', (e)=>{
 
   ulTarget.addEventListener("click", function(v) {
     if(v.target.nodeName === 'LI'){
-      modelDeleteList(v.target.innerText);
+      // 글자 선택시 동작하던 기존 기능 제외
+      // modelDeleteList(v);
     }     
+
+    if(v.target.nodeName === 'INPUT') {
+      modelToggleCompletedList(v)
+    }
+
+    if(v.target.nodeName === 'BUTTON') {
+      modelDeleteList(v);
+    }
   });
 })
 
-
 function viewInsertList(item) {
   // li요소 추가
-  
+
   const ulTarget = document.querySelector('#todo-list');
-  const template = '<li>' + item + '</li>';
+  const template = '<li><input type="checkbox" value="' + item.content + '"><span>' + item.content + '</span><button>삭제</button></li>';
   ulTarget.insertAdjacentHTML('beforeend', template);
+  if(item.completed) modelInitCompletedList(item.completed);
 }
 
 function viewAllDeleteList() {
@@ -52,39 +61,51 @@ function viewRerendering() {
   // todos의 모든 content를 출력하는 함수
 
   viewAllDeleteList();
-  todos.forEach(v => { viewInsertList(v.content) });
+  todos.forEach(v => { viewInsertList(v) });
 }
 
 function modelInitialize() {
   // 초기화 과정시 사용, todos에 데이터가 있으면 이를 출력
 
-  if(todos.length) todos.forEach(v => { viewInsertList(v.content); });
+  if(todos.length) todos.forEach(v => { viewInsertList(v); });
+}
+
+function modelInitCompletedList(checked) {
+  // completed 변수 화면에 출력
+  const ulTarget = document.querySelector("#todo-list");
+  ulTarget.lastElementChild.firstElementChild.setAttribute("checked", true);
 }
 
 function modelInsertList(item){
   // todos에 객체단위로 데이터 입력 
   // template : { id: 3, content: "HTML", completed: false }
-
-  const template = {id: 'test', content: item, completed: false}
+  debugger;
+  const maxId = todos.map(v => v.id).reduce((prev, curr) => { return Math.max(prev, curr); });
+  console.log(maxId)
+  const template = {id: (maxId + 1), content: item, completed: false}
   todos = todos.concat([template]);
 
   // render 호출(전체삭제, 전체호출)
   viewRerendering();
 }
 
-function modelDeleteList(item) {
-                                 //todos에서 해당 되는 아이템 이외의 것만 살리기
+function modelDeleteList(event) {
+  //todos에서 해당 되는 아이템 이외의 것만 살리기
 
-                                 todos = todos.filter(
-                                   v => {
-                                     if (
-                                       v.content !==
-                                       item
-                                     )
-                                       return v;
-                                   }
-                                 );
+  const contentText = event.target.previousElementSibling;
+  console.log(contentText);
+  todos = todos.filter(v => {if (v.content !== contentText.innerText) return v; } );
 
-                                 // render 호출(전체삭제, 전체호출)
-                                 viewRerendering();
-                               }
+  // render 호출(전체삭제, 전체호출)
+  viewRerendering();
+}
+
+function modelToggleCompletedList(event) {
+  //todos에서 해당되는 아이템의 completed값 토글
+
+  const contentText = event.target.nextElementSibling;
+  todos = todos.map(v => { return (v.content === contentText.innerText) ? Object.assign({}, v, {completed: !(v.completed)}) : v; });
+
+  // render 호출(전체삭제, 전체호출)
+  viewRerendering();
+}
